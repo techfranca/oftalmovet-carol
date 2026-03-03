@@ -1040,6 +1040,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     }
     
     .hero { padding: 32px 0 48px; }
+
+    .hero-badges::before {
+        content: none;
+    }
+
+    .hero-badges .badge:last-child {
+        order: initial;
+        transform: none;
+    }
     
     .hero-image { max-width: 300px; }
     
@@ -1095,6 +1104,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .section-title { font-size: 20px; }
     
     .badge { width: 100%; justify-content: center; }
+
+    .hero-badges .badge:last-child {
+        width: 100%;
+    }
     
     .step-card {
         flex-direction: column;
