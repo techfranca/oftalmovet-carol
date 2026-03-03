@@ -334,7 +334,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .atendimento {
     --atendimento-slide-width: 280px;
     --atendimento-slide-gap: 16px;
-    --atendimento-set-size: 5;
+    --atendimento-set-size: 8;
     padding: 60px 0;
     background: var(--color-white);
     overflow: hidden;
