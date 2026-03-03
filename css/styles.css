@@ -183,16 +183,19 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     grid-template-areas:
         "content image"
         "actions image";
-    gap: 48px;
-    align-items: center;
+    column-gap: 48px;
+    row-gap: 16px;
+    align-items: start;
 }
 
 .hero-content {
     grid-area: content;
+    padding-top: 28px;
 }
 
 .hero-actions {
     grid-area: actions;
+    margin-top: -96px;
 }
 
 .hero-title {
@@ -255,6 +258,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     margin-top: 24px;
 }
 
+.hero-badges::before {
+    content: "";
+    order: 2;
+    flex-basis: 100%;
+    height: 0;
+}
+
 .badge {
     display: inline-flex;
     align-items: center;
@@ -269,6 +279,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     color: var(--color-text);
 }
 
+.hero-badges .badge:last-child {
+    order: 3;
+    transform: translateX(50%);
+}
+
 .badge-icon {
     width: 16px;
     height: 16px;
@@ -280,6 +295,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     grid-area: image;
     max-width: 380px;
     margin-left: auto;
+    align-self: center;
 }
 
 .hero-image img {
@@ -932,6 +948,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .hero-image {
         max-width: 340px;
         margin: 0 auto;
+    }
+
+    .hero-content {
+        padding-top: 0;
+    }
+
+    .hero-actions {
+        margin-top: 0;
     }
     
     .hero-content,
