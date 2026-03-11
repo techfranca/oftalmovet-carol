@@ -178,24 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // Header Scroll Effect
-    // ========================================
-    const header = document.querySelector('.header');
-    let lastScroll = 0;
-    
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.boxShadow = 'none';
-        }
-        
-        lastScroll = currentScroll;
-    });
-    
-    // ========================================
     // WhatsApp Button Click Tracking (optional)
     // ========================================
     const whatsappButtons = document.querySelectorAll('.btn-whatsapp, .whatsapp-float');

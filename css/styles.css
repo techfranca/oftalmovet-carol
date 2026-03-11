@@ -75,7 +75,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 ======================================== */
 .hero-brand-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 14px;
     margin-bottom: 24px;
@@ -232,6 +231,41 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .btn-whatsapp:active {
     transform: translateY(0);
+}
+
+/* Hero Google Inline */
+.hero-google-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.hero-google-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.hero-google-stars {
+    display: flex;
+    gap: 1px;
+}
+
+.hero-google-stars svg {
+    width: 13px;
+    height: 13px;
+    color: var(--color-star);
+}
+
+.hero-google-text {
+    font-family: var(--font-detail);
+    font-size: 12px;
+    color: var(--color-text-light);
+}
+
+.hero-google-text strong {
+    color: var(--color-text);
 }
 
 /* Badges */
@@ -961,7 +995,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .hero-content,
     .hero-actions { text-align: center; }
     .hero-brand-row { justify-content: center; }
-    .hero-badges { justify-content: center; }
+    .hero-google-inline { justify-content: center; }
     
     .steps-grid { grid-template-columns: 1fr; }
     
@@ -984,17 +1018,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .container { padding: 0 16px; }
 
     .hero-brand-row {
-        flex-wrap: wrap;
         justify-content: center;
         margin-bottom: 18px;
-    }
-
-    .hero-brand-row .google-badge {
-        order: 1;
-    }
-
-    .hero-brand-row .logo {
-        order: 2;
     }
     
     .logo {
