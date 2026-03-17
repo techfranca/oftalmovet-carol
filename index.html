@@ -1,35 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-NL3WQKJV');</script>
-  <!-- End Google Tag Manager -->
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function loadGTM() {
+        if (window.__gtmLoaded) {
+          return;
+        }
+
+        window.__gtmLoaded = true;
+        window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        var gtmScript = document.createElement('script');
+        gtmScript.async = true;
+        gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NL3WQKJV';
+        firstScript.parentNode.insertBefore(gtmScript, firstScript);
+      }
+
+      function scheduleGTM() {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadGTM, { timeout: 2000 });
+          return;
+        }
+
+        setTimeout(loadGTM, 1200);
+      }
+
+      window.addEventListener('load', scheduleGTM, { once: true });
+      ['pointerdown', 'touchstart', 'keydown'].forEach(function(eventName) {
+        window.addEventListener(eventName, loadGTM, { once: true, passive: true });
+      });
+    </script>
     <meta name="description" content="Oftalmologista Veterinário na Barra da Tijuca - RJ. Dra. Carolina Neumann. Atendimento especializado em oftalmologia veterinária com diagnóstico preciso e estrutura completa.">
     <title>Oftalmologista Veterinário | Dra. Carolina Neumann | Barra da Tijuca - RJ</title>
     
     <!-- Preload recursos críticos -->
     <link rel="preload" as="image" href="assets/images/fachada/clinica_fachada1.webp">
-    <link rel="preload" as="image" href="assets/images/logo_oftalmo.webp" type="image/webp">
 
     <!-- Fonts - Async para não bloquear renderização -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=optional" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=optional" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=optional" rel="stylesheet"></noscript>
 
     <!-- CSS Crítico inline (hero + base) -->
     <style>
-      :root{--color-primary:#395756;--color-accent:#C4B18A;--color-white:#fff;--color-bg-cream:#faf9f7;--color-text:#2d3436;--color-text-light:#636e72;--color-border:#e9ecef;--color-whatsapp:#25D366;--color-star:#fbbf24;--font-title:'Nunito',sans-serif;--font-body:'Nunito',sans-serif;--font-detail:'Manrope',sans-serif;--font-button:'Sora',sans-serif;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 24px rgba(0,0,0,.1)}
+      :root{--color-primary:#395756;--color-accent:#C4B18A;--color-white:#fff;--color-bg-cream:#faf9f7;--color-text:#2d3436;--color-text-light:#636e72;--color-border:#e9ecef;--color-whatsapp:#25D366;--color-star:#fbbf24;--font-title:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;--font-body:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;--font-detail:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;--font-button:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 24px rgba(0,0,0,.1)}
       *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
       html{-webkit-font-smoothing:antialiased}
-      body{font-family:var(--font-body);font-size:16px;line-height:1.6;color:var(--color-text);background:var(--color-white)}
+      body{font-family:var(--font-body);font-size:16px;line-height:1.6;color:var(--color-text);background:var(--color-white);overflow-x:hidden}
       img{max-width:100%;height:auto;display:block}
       a{text-decoration:none;color:inherit}
       button{font-family:inherit;cursor:pointer;border:none;background:none}
@@ -44,7 +68,7 @@
       .logo-image{display:block;width:220px;height:auto;max-width:100%}
       .hero-title{font-family:var(--font-title);font-size:clamp(26px,3.2vw,36px);font-weight:700;line-height:1.2;color:var(--color-primary);margin-bottom:16px}
       .hero-subtitle{font-family:var(--font-body);font-size:15px;color:var(--color-text-light);line-height:1.7;margin-bottom:24px}
-      .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-family:var(--font-button);font-size:14px;font-weight:600;border-radius:var(--radius-md);transition:transform .2s,box-shadow .2s}
+      .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;font-family:var(--font-button);font-size:14px;font-weight:600;border-radius:var(--radius-md);transition:transform .2s,box-shadow .2s}
       .btn-icon{width:18px;height:18px}
       .btn-whatsapp{background:var(--color-whatsapp);color:var(--color-white);box-shadow:0 4px 14px rgba(37,211,102,.3)}
       .hero-google-inline{display:flex;align-items:center;gap:6px;margin-top:16px}
@@ -58,8 +82,8 @@
       @media(max-width:480px){.hero-brand-row{flex-direction:column;align-items:center}.logo-image{width:145px}.hero-title{font-size:24px}}
     </style>
     <!-- CSS completo async (restante da página) -->
-    <link rel="preload" href="css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="css/styles.css"></noscript>
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="stylesheet" href="css/styles.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/logo_oftalmo.png">
@@ -77,14 +101,14 @@
                 <div class="hero-content">
                     <div class="hero-brand-row">
                         <div class="logo">
-                            <img src="assets/images/logo_oftalmo.webp" alt="Logo oficial da Dra. Carolina Neumann" class="logo-image" loading="eager" fetchpriority="high" width="1749" height="296">
+                            <img src="assets/images/logo_oftalmo.webp" alt="Logo oficial da Dra. Carolina Neumann" class="logo-image" loading="eager" fetchpriority="low" decoding="async" width="1749" height="296">
                         </div>
                     </div>
                     <h1 class="hero-title">Oftalmologista Veterinário na Barra da Tijuca – RJ</h1>
                     <p class="hero-subtitle">Atendimento especializado em oftalmologia veterinária com diagnóstico preciso e estrutura completa para cuidar da visão do seu pet.</p>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/images/fachada/clinica_fachada1.webp" alt="Fachada da clínica de oftalmologia veterinária da Dra. Carolina Neumann" loading="eager" fetchpriority="high" width="1600" height="2400">
+                    <img src="assets/images/fachada/clinica_fachada1.webp" alt="Fachada da clínica de oftalmologia veterinária da Dra. Carolina Neumann" loading="eager" fetchpriority="high" decoding="async" width="1600" height="2400">
                 </div>
                 <div class="hero-actions">
                     <a href="https://wa.me/5521998122301?text=Olá! Gostaria de agendar uma consulta oftalmológica para meu pet." class="btn btn-whatsapp" target="_blank" rel="noopener">
@@ -193,7 +217,7 @@
                 <div class="depoimentos-track">
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_felipe.avif" alt="Felipe Gandra" class="depoimento-avatar" width="48" height="48">
+                            <img src="assets/images/depoimentos/depoimento_felipe.avif" alt="Felipe Gandra" class="depoimento-avatar" loading="lazy" decoding="async" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Felipe Gandra</span>
                                 <div class="depoimento-stars">
@@ -210,7 +234,7 @@
                     </div>
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_bruno.avif" alt="Bruno Fernandes" class="depoimento-avatar" width="48" height="48">
+                            <img src="assets/images/depoimentos/depoimento_bruno.avif" alt="Bruno Fernandes" class="depoimento-avatar" loading="lazy" decoding="async" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Bruno Fernandes</span>
                                 <div class="depoimento-stars">
@@ -227,7 +251,7 @@
                     </div>
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_mariana.avif" alt="Mariana Oliveira" class="depoimento-avatar" width="48" height="48">
+                            <img src="assets/images/depoimentos/depoimento_mariana.avif" alt="Mariana Oliveira" class="depoimento-avatar" loading="lazy" decoding="async" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Mariana Oliveira</span>
                                 <div class="depoimento-stars">
@@ -244,7 +268,7 @@
                     </div>
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_arleu.avif" alt="Arleu de Souza" class="depoimento-avatar" width="48" height="48">
+                            <img src="assets/images/depoimentos/depoimento_arleu.avif" alt="Arleu de Souza" class="depoimento-avatar" loading="lazy" decoding="async" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Arleu de Souza</span>
                                 <div class="depoimento-stars">

@@ -1,295 +1,235 @@
-/* ========================================
-   OFTALMOVET - Dra. Carolina Neumann
-   Landing Page JavaScript
-======================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    initFAQ();
+    initSmoothScroll();
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ========================================
-    // FAQ Accordion
-    // ========================================
+    queueIdleTask(() => {
+        initDepoimentosWhenVisible();
+    });
+});
+
+function queueIdleTask(callback) {
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => callback(), { timeout: 1200 });
+        return;
+    }
+
+    setTimeout(callback, 1);
+}
+
+function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
+
+    if (!faqItems.length) {
+        return;
+    }
+
+    faqItems.forEach((item) => {
         const question = item.querySelector('.faq-question');
-        
+
+        if (!question) {
+            return;
+        }
+
         question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Close all other items
-            faqItems.forEach(otherItem => {
-                otherItem.classList.remove('active');
+            const shouldOpen = !item.classList.contains('active');
+
+            faqItems.forEach((faqItem) => {
+                faqItem.classList.remove('active');
             });
-            
-            // Toggle current item
-            if (!isActive) {
+
+            if (shouldOpen) {
                 item.classList.add('active');
             }
         });
     });
-    
-    // ========================================
-    // Depoimentos Carousel
-    // ========================================
-    const track = document.querySelector('.depoimentos-track');
-    const prevBtn = document.querySelector('.carousel-btn-prev');
-    const nextBtn = document.querySelector('.carousel-btn-next');
-    const dots = document.querySelectorAll('.dot');
-    const cards = document.querySelectorAll('.depoimento-card');
-    
-    let currentIndex = 0;
-    const totalCards = cards.length;
-    
-    // Calculate card width including gap
-    function getCardWidth() {
-        if (window.innerWidth <= 768) {
-            return track.offsetWidth;
+}
+
+function initSmoothScroll() {
+    const anchors = document.querySelectorAll('a[href^="#"]');
+
+    if (!anchors.length) {
+        return;
+    }
+
+    anchors.forEach((anchor) => {
+        anchor.addEventListener('click', (event) => {
+            const targetId = anchor.getAttribute('href');
+
+            if (!targetId || targetId === '#') {
+                return;
+            }
+
+            const targetElement = document.querySelector(targetId);
+
+            if (!targetElement) {
+                return;
+            }
+
+            event.preventDefault();
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    });
+}
+
+function initDepoimentosWhenVisible() {
+    const section = document.querySelector('.depoimentos');
+
+    if (!section) {
+        return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+        initDepoimentosCarousel(section);
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        const sectionVisible = entries.some((entry) => entry.isIntersecting);
+
+        if (!sectionVisible) {
+            return;
         }
-        const card = cards[0];
-        const style = getComputedStyle(track);
-        const gap = parseInt(style.gap) || 24;
-        return card.offsetWidth + gap;
+
+        observer.disconnect();
+        initDepoimentosCarousel(section);
+    }, {
+        rootMargin: '240px 0px'
+    });
+
+    observer.observe(section);
+}
+
+function initDepoimentosCarousel(section) {
+    const track = section.querySelector('.depoimentos-track');
+    const prevBtn = section.querySelector('.carousel-btn-prev');
+    const nextBtn = section.querySelector('.carousel-btn-next');
+    const dots = Array.from(section.querySelectorAll('.dot'));
+    const cards = Array.from(section.querySelectorAll('.depoimento-card'));
+
+    if (!track || cards.length < 2) {
+        return;
     }
-    
-    // Update carousel position
-    function updateCarousel(index) {
+
+    let currentIndex = 0;
+    let autoPlayInterval = null;
+    let scrollFrame = 0;
+
+    const updateDots = (index) => {
+        dots.forEach((dot, dotIndex) => {
+            dot.classList.toggle('active', dotIndex === index);
+        });
+    };
+
+    const getCardWidth = () => {
+        const firstCard = cards[0];
+
+        if (!firstCard) {
+            return 0;
+        }
+
+        const gap = parseFloat(getComputedStyle(track).gap || '16') || 16;
+        return firstCard.getBoundingClientRect().width + gap;
+    };
+
+    const updateCarousel = (index, behavior = 'smooth') => {
         const cardWidth = getCardWidth();
+
+        if (!cardWidth) {
+            return;
+        }
+
+        currentIndex = ((index % cards.length) + cards.length) % cards.length;
         track.scrollTo({
-            left: index * cardWidth,
-            behavior: 'smooth'
+            left: currentIndex * cardWidth,
+            behavior
         });
-        
-        // Update dots
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
-        
-        currentIndex = index;
-    }
-    
-    // Next button
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            const nextIndex = (currentIndex + 1) % totalCards;
-            updateCarousel(nextIndex);
-        });
-    }
-    
-    // Previous button
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            const prevIndex = (currentIndex - 1 + totalCards) % totalCards;
-            updateCarousel(prevIndex);
-        });
-    }
-    
-    // Dots navigation
+        updateDots(currentIndex);
+    };
+
+    const syncIndexFromScroll = () => {
+        scrollFrame = 0;
+
+        const cardWidth = getCardWidth();
+
+        if (!cardWidth) {
+            return;
+        }
+
+        const nextIndex = Math.round(track.scrollLeft / cardWidth);
+
+        if (nextIndex < 0 || nextIndex >= cards.length || nextIndex === currentIndex) {
+            return;
+        }
+
+        currentIndex = nextIndex;
+        updateDots(currentIndex);
+    };
+
+    const stopAutoPlay = () => {
+        if (!autoPlayInterval) {
+            return;
+        }
+
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+    };
+
+    const startAutoPlay = () => {
+        stopAutoPlay();
+
+        if (window.innerWidth <= 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+
+        autoPlayInterval = window.setInterval(() => {
+            updateCarousel(currentIndex + 1);
+        }, 5000);
+    };
+
+    prevBtn?.addEventListener('click', () => {
+        updateCarousel(currentIndex - 1);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+        updateCarousel(currentIndex + 1);
+    });
+
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             updateCarousel(index);
         });
     });
-    
-    // Update current index on scroll (for touch/swipe)
-    if (track) {
-        track.addEventListener('scroll', () => {
-            const cardWidth = getCardWidth();
-            const scrollLeft = track.scrollLeft;
-            const newIndex = Math.round(scrollLeft / cardWidth);
-            
-            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < totalCards) {
-                currentIndex = newIndex;
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentIndex);
-                });
-            }
-        });
-    }
-    
-    // Auto-play carousel (optional - every 5 seconds)
-    let autoPlayInterval;
-    
-    function startAutoPlay() {
-        autoPlayInterval = setInterval(() => {
-            const nextIndex = (currentIndex + 1) % totalCards;
-            updateCarousel(nextIndex);
-        }, 5000);
-    }
-    
-    function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
-    }
-    
-    // Start autoplay
-    startAutoPlay();
-    
-    // Pause autoplay on hover
-    if (track) {
+
+    track.addEventListener('scroll', () => {
+        if (scrollFrame) {
+            return;
+        }
+
+        scrollFrame = window.requestAnimationFrame(syncIndexFromScroll);
+    }, { passive: true });
+
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         track.addEventListener('mouseenter', stopAutoPlay);
         track.addEventListener('mouseleave', startAutoPlay);
     }
-    
-    // ========================================
-    // Smooth Scroll for Anchor Links
-    // ========================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-    
-    // ========================================
-    // Scroll Animations (Intersection Observer)
-    // ========================================
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-    
-    const animatedElements = document.querySelectorAll(
-        '.section-header, .depoimento-card, .step-card, .feature-item, .faq-item, .gallery-item, .estrutura-item'
-    );
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-    
-    // ========================================
-    // WhatsApp Button Click Tracking (optional)
-    // ========================================
-    const whatsappButtons = document.querySelectorAll('.btn-whatsapp, .whatsapp-float');
-    
-    whatsappButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // You can add analytics tracking here
-            console.log('WhatsApp button clicked');
-            
-            // Example: Google Analytics event
-            // gtag('event', 'click', {
-            //     'event_category': 'WhatsApp',
-            //     'event_label': 'Agendar Consulta'
-            // });
-        });
-    });
-    
-    // ========================================
-    // Video Poster - captura primeiro frame ao entrar na viewport
-    // ========================================
-    const videoPlayer = document.querySelector('.video-depoimento-player');
 
-    if (videoPlayer) {
-        const captureFrame = function() {
-            videoPlayer.addEventListener('loadedmetadata', function() {
-                videoPlayer.currentTime = 0.01;
-            });
+    window.addEventListener('resize', debounce(() => {
+        updateCarousel(currentIndex, 'auto');
+        startAutoPlay();
+    }, 150));
 
-            videoPlayer.addEventListener('seeked', function() {
-                const canvas = document.createElement('canvas');
-                canvas.width = videoPlayer.videoWidth;
-                canvas.height = videoPlayer.videoHeight;
-                canvas.getContext('2d').drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
-                videoPlayer.poster = canvas.toDataURL('image/jpeg');
-                videoPlayer.removeAttribute('preload');
-            }, { once: true });
-
-            videoPlayer.preload = 'metadata';
-        };
-
-        const videoObserver = new IntersectionObserver(function(entries) {
-            if (entries[0].isIntersecting) {
-                captureFrame();
-                videoObserver.disconnect();
-            }
-        }, { rootMargin: '200px' });
-
-        videoObserver.observe(videoPlayer);
-    }
-
-    // ========================================
-    // Lazy Loading Images
-    // ========================================
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    
-    if ('loading' in HTMLImageElement.prototype) {
-        // Browser supports native lazy loading
-        lazyImages.forEach(img => {
-            img.src = img.src;
-        });
-    } else {
-        // Fallback for browsers that don't support lazy loading
-        const lazyObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    lazyObserver.unobserve(img);
-                }
-            });
-        });
-        
-        lazyImages.forEach(img => lazyObserver.observe(img));
-    }
-    
-    // ========================================
-    // Mobile Menu (if needed in future)
-    // ========================================
-    // Placeholder for mobile menu functionality
-    
-    // ========================================
-    // Form Validation (if needed in future)
-    // ========================================
-    // Placeholder for form validation
-    
-});
-
-// ========================================
-// Utility Functions
-// ========================================
-
-// Debounce function for scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
+    updateDots(currentIndex);
+    startAutoPlay();
 }
 
-// Throttle function for performance
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
+function debounce(callback, wait) {
+    let timeoutId;
+
+    return function debouncedFunction(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => callback(...args), wait);
     };
 }
