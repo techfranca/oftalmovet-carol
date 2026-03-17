@@ -196,22 +196,36 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // Video Poster - captura primeiro frame
+    // Video Poster - captura primeiro frame ao entrar na viewport
     // ========================================
     const videoPlayer = document.querySelector('.video-depoimento-player');
 
     if (videoPlayer) {
-        videoPlayer.addEventListener('loadedmetadata', function() {
-            videoPlayer.currentTime = 0.01;
-        });
+        const captureFrame = function() {
+            videoPlayer.addEventListener('loadedmetadata', function() {
+                videoPlayer.currentTime = 0.01;
+            });
 
-        videoPlayer.addEventListener('seeked', function() {
-            const canvas = document.createElement('canvas');
-            canvas.width = videoPlayer.videoWidth;
-            canvas.height = videoPlayer.videoHeight;
-            canvas.getContext('2d').drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
-            videoPlayer.poster = canvas.toDataURL('image/jpeg');
-        }, { once: true });
+            videoPlayer.addEventListener('seeked', function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = videoPlayer.videoWidth;
+                canvas.height = videoPlayer.videoHeight;
+                canvas.getContext('2d').drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
+                videoPlayer.poster = canvas.toDataURL('image/jpeg');
+                videoPlayer.removeAttribute('preload');
+            }, { once: true });
+
+            videoPlayer.preload = 'metadata';
+        };
+
+        const videoObserver = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+                captureFrame();
+                videoObserver.disconnect();
+            }
+        }, { rootMargin: '200px' });
+
+        videoObserver.observe(videoPlayer);
     }
 
     // ========================================
