@@ -71,13 +71,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     padding: 0 20px;
 }
 
-@supports (content-visibility: auto) {
-    body > section:not(.hero),
-    body > footer {
-        content-visibility: auto;
-        contain-intrinsic-size: auto 760px;
-    }
-}
+/* content-visibility removido: em landing pages curtas o placeholder de 760px
+   causava CLS ao ativar seções com altura real diferente do estimado. */
 
 /* ========================================
    HERO BRAND
@@ -324,6 +319,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     max-width: 380px;
     margin-left: auto;
     align-self: center;
+    aspect-ratio: 2 / 3;
 }
 
 .hero-image img {

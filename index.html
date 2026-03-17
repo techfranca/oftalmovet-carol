@@ -61,7 +61,7 @@
       .hero{padding:48px 0 60px;background:linear-gradient(180deg,var(--color-bg-cream) 0%,var(--color-white) 100%)}
       .hero-grid{display:grid;grid-template-columns:1fr .9fr;grid-template-areas:"content image" "actions image";column-gap:48px;row-gap:16px;align-items:start}
       .hero-content{grid-area:content}.hero-actions{grid-area:actions;margin-top:8px}
-      .hero-image{grid-area:image;max-width:380px;margin-left:auto;align-self:center}
+      .hero-image{grid-area:image;max-width:380px;margin-left:auto;align-self:center;aspect-ratio:2/3}
       .hero-image img{width:100%;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)}
       .hero-brand-row{display:flex;align-items:center;gap:14px;margin-bottom:24px}
       .logo{display:flex;align-items:center;padding:6px 10px;background:linear-gradient(135deg,#f6f8fb 0%,#fff 100%);border:1px solid #e7ebef;border-radius:var(--radius-md);box-shadow:var(--shadow-sm)}
@@ -77,13 +77,14 @@
       .hero-google-stars svg{width:13px;height:13px;color:var(--color-star)}
       .hero-google-text{font-family:var(--font-detail);font-size:12px;color:var(--color-text-light)}
       .hero-google-text strong{color:var(--color-text)}
-      @media(max-width:1024px){.hero-grid{grid-template-columns:1fr;grid-template-areas:"content" "image" "actions";gap:32px}.hero-image{max-width:340px;margin:0 auto}.hero-content,.hero-actions{text-align:center}.hero-brand-row{justify-content:center}.hero-google-inline{justify-content:center}}
-      @media(max-width:768px){.container{padding:0 16px}.hero{padding:32px 0 48px}.hero-image{max-width:300px}.logo-image{width:170px}.btn{width:100%}}
+      @media(max-width:1024px){.hero-grid{grid-template-columns:1fr;grid-template-areas:"content" "image" "actions";gap:32px}.hero-image{max-width:340px;margin:0 auto;aspect-ratio:2/3}.hero-content,.hero-actions{text-align:center}.hero-brand-row{justify-content:center}.hero-google-inline{justify-content:center}}
+      @media(max-width:768px){.container{padding:0 16px}.hero{padding:32px 0 48px}.hero-image{max-width:300px;aspect-ratio:2/3}.logo-image{width:170px}.btn{width:100%}}
       @media(max-width:480px){.hero-brand-row{flex-direction:column;align-items:center}.logo-image{width:145px}.hero-title{font-size:24px}}
     </style>
     <!-- CSS completo async (restante da página) -->
     <link rel="preload" href="css/styles.css" as="style">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="css/styles.css"></noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/logo_oftalmo.png">
@@ -108,7 +109,7 @@
                     <p class="hero-subtitle">Atendimento especializado em oftalmologia veterinária com diagnóstico preciso e estrutura completa para cuidar da visão do seu pet.</p>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/images/fachada/clinica_fachada1.webp" alt="Fachada da clínica de oftalmologia veterinária da Dra. Carolina Neumann" loading="eager" fetchpriority="high" decoding="async" width="1600" height="2400">
+                    <img src="assets/images/fachada/clinica_fachada1.webp" alt="Fachada da clínica de oftalmologia veterinária da Dra. Carolina Neumann" loading="eager" fetchpriority="high" decoding="sync" width="1600" height="2400">
                 </div>
                 <div class="hero-actions">
                     <a href="https://wa.me/5521998122301?text=Olá! Gostaria de agendar uma consulta oftalmológica para meu pet." class="btn btn-whatsapp" target="_blank" rel="noopener">
