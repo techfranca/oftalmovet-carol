@@ -196,6 +196,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
+    // Video Poster - captura primeiro frame
+    // ========================================
+    const videoPlayer = document.querySelector('.video-depoimento-player');
+
+    if (videoPlayer) {
+        videoPlayer.addEventListener('loadedmetadata', function() {
+            videoPlayer.currentTime = 0.01;
+        });
+
+        videoPlayer.addEventListener('seeked', function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = videoPlayer.videoWidth;
+            canvas.height = videoPlayer.videoHeight;
+            canvas.getContext('2d').drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
+            videoPlayer.poster = canvas.toDataURL('image/jpeg');
+        }, { once: true });
+    }
+
+    // ========================================
     // Lazy Loading Images
     // ========================================
     const lazyImages = document.querySelectorAll('img[loading="lazy"]');
