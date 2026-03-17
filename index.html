@@ -18,10 +18,11 @@
     <link rel="preload" as="image" href="assets/images/fachada/clinica_fachada1.webp">
     <link rel="preload" as="image" href="assets/images/logo_oftalmo.png">
 
-    <!-- Fonts - Preload para performance -->
+    <!-- Fonts - Async para não bloquear renderização -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -42,14 +43,14 @@
                 <div class="hero-content">
                     <div class="hero-brand-row">
                         <div class="logo">
-                            <img src="assets/images/logo_oftalmo.png" alt="Logo oficial da Dra. Carolina Neumann" class="logo-image" loading="eager" fetchpriority="high">
+                            <img src="assets/images/logo_oftalmo.png" alt="Logo oficial da Dra. Carolina Neumann" class="logo-image" loading="eager" fetchpriority="high" width="1749" height="296">
                         </div>
                     </div>
                     <h1 class="hero-title">Oftalmologista Veterinário na Barra da Tijuca – RJ</h1>
                     <p class="hero-subtitle">Atendimento especializado em oftalmologia veterinária com diagnóstico preciso e estrutura completa para cuidar da visão do seu pet.</p>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/images/fachada/clinica_fachada1.webp" alt="Fachada da clínica de oftalmologia veterinária da Dra. Carolina Neumann" loading="eager" fetchpriority="high">
+                    <img src="assets/images/fachada/clinica_fachada1.webp" alt="Fachada da clínica de oftalmologia veterinária da Dra. Carolina Neumann" loading="eager" fetchpriority="high" width="1600" height="2400">
                 </div>
                 <div class="hero-actions">
                     <a href="https://wa.me/5521998122301?text=Olá! Gostaria de agendar uma consulta oftalmológica para meu pet." class="btn btn-whatsapp" target="_blank" rel="noopener">
@@ -85,59 +86,59 @@
                 <div class="atendimento-track">
                     <!-- Primeiro set de imagens -->
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/julio_cesar.jpg" alt="Júlio César em atendimento oftalmológico veterinário" loading="lazy">
+                        <img src="assets/images/atendimento/julio_cesar.jpg" alt="Júlio César em atendimento oftalmológico veterinário" loading="lazy" width="3000" height="4000">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/carol_com_cachorro.avif" alt="Dra. Carolina com paciente" loading="lazy">
+                        <img src="assets/images/carol_com_cachorro.avif" alt="Dra. Carolina com paciente" loading="lazy" width="640" height="961">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_1.webp" alt="Atendimento oftalmológico veterinário em consulta" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_1.webp" alt="Atendimento oftalmológico veterinário em consulta" loading="lazy" width="1600" height="2400">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_2.webp" alt="Exame oftalmológico veterinário em consultório" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_2.webp" alt="Exame oftalmológico veterinário em consultório" loading="lazy" width="1600" height="2400">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_3.webp" alt="Consulta especializada de oftalmologia veterinária" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_3.webp" alt="Consulta especializada de oftalmologia veterinária" loading="lazy" width="1600" height="2400">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_4.webp" alt="Cuidado humanizado no atendimento veterinário" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_4.webp" alt="Cuidado humanizado no atendimento veterinário" loading="lazy" width="1200" height="1600">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_5.webp" alt="Paciente em atendimento com suporte especializado" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_5.webp" alt="Paciente em atendimento com suporte especializado" loading="lazy" width="613" height="766">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_6.webp" alt="Momento de cuidado durante a consulta veterinária" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_6.webp" alt="Momento de cuidado durante a consulta veterinária" loading="lazy" width="605" height="776">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_7.webp" alt="Atendimento oftalmológico veterinário com estrutura completa" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_7.webp" alt="Atendimento oftalmológico veterinário com estrutura completa" loading="lazy" width="2252" height="4000">
                     </div>
                     <!-- Duplicado para loop infinito -->
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/julio_cesar.jpg" alt="Júlio César em atendimento oftalmológico veterinário" loading="lazy">
+                        <img src="assets/images/atendimento/julio_cesar.jpg" alt="Júlio César em atendimento oftalmológico veterinário" loading="lazy" width="3000" height="4000">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/carol_com_cachorro.avif" alt="Dra. Carolina com paciente" loading="lazy">
+                        <img src="assets/images/carol_com_cachorro.avif" alt="Dra. Carolina com paciente" loading="lazy" width="640" height="961">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_1.webp" alt="Atendimento oftalmológico veterinário em consulta" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_1.webp" alt="Atendimento oftalmológico veterinário em consulta" loading="lazy" width="1600" height="2400">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_2.webp" alt="Exame oftalmológico veterinário em consultório" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_2.webp" alt="Exame oftalmológico veterinário em consultório" loading="lazy" width="1600" height="2400">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_3.webp" alt="Consulta especializada de oftalmologia veterinária" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_3.webp" alt="Consulta especializada de oftalmologia veterinária" loading="lazy" width="1600" height="2400">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_4.webp" alt="Cuidado humanizado no atendimento veterinário" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_4.webp" alt="Cuidado humanizado no atendimento veterinário" loading="lazy" width="1200" height="1600">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_5.webp" alt="Paciente em atendimento com suporte especializado" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_5.webp" alt="Paciente em atendimento com suporte especializado" loading="lazy" width="613" height="766">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_6.webp" alt="Momento de cuidado durante a consulta veterinária" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_6.webp" alt="Momento de cuidado durante a consulta veterinária" loading="lazy" width="605" height="776">
                     </div>
                     <div class="atendimento-slide">
-                        <img src="assets/images/atendimento/atendimento_7.webp" alt="Atendimento oftalmológico veterinário com estrutura completa" loading="lazy">
+                        <img src="assets/images/atendimento/atendimento_7.webp" alt="Atendimento oftalmológico veterinário com estrutura completa" loading="lazy" width="2252" height="4000">
                     </div>
                 </div>
             </div>
@@ -158,7 +159,7 @@
                 <div class="depoimentos-track">
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_felipe.avif" alt="Felipe Gandra" class="depoimento-avatar">
+                            <img src="assets/images/depoimentos/depoimento_felipe.avif" alt="Felipe Gandra" class="depoimento-avatar" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Felipe Gandra</span>
                                 <div class="depoimento-stars">
@@ -175,7 +176,7 @@
                     </div>
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_bruno.avif" alt="Bruno Fernandes" class="depoimento-avatar">
+                            <img src="assets/images/depoimentos/depoimento_bruno.avif" alt="Bruno Fernandes" class="depoimento-avatar" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Bruno Fernandes</span>
                                 <div class="depoimento-stars">
@@ -192,7 +193,7 @@
                     </div>
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_mariana.avif" alt="Mariana Oliveira" class="depoimento-avatar">
+                            <img src="assets/images/depoimentos/depoimento_mariana.avif" alt="Mariana Oliveira" class="depoimento-avatar" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Mariana Oliveira</span>
                                 <div class="depoimento-stars">
@@ -209,7 +210,7 @@
                     </div>
                     <div class="depoimento-card">
                         <div class="depoimento-header">
-                            <img src="assets/images/depoimentos/depoimento_arleu.avif" alt="Arleu de Souza" class="depoimento-avatar">
+                            <img src="assets/images/depoimentos/depoimento_arleu.avif" alt="Arleu de Souza" class="depoimento-avatar" width="48" height="48">
                             <div class="depoimento-info">
                                 <span class="depoimento-name">Arleu de Souza</span>
                                 <div class="depoimento-stars">
@@ -252,7 +253,7 @@
                     <video
                         class="video-depoimento-player"
                         controls
-                        preload="metadata"
+                        preload="none"
                         playsinline
                         aria-label="Depoimento de Paolla Oliveira">
                         <source src="assets/videos/paola_oliveira.mp4" type="video/mp4">
@@ -276,16 +277,16 @@
             </div>
             <div class="estrutura-gallery">
                 <div class="estrutura-item">
-                    <img src="assets/images/estrutura/estrutura_1.webp" alt="Ambiente interno da clínica veterinária" loading="lazy">
+                    <img src="assets/images/estrutura/estrutura_1.webp" alt="Ambiente interno da clínica veterinária" loading="lazy" width="2252" height="4000">
                 </div>
                 <div class="estrutura-item">
-                    <img src="assets/images/estrutura/estrutura_2.webp" alt="Espaço de atendimento com estrutura organizada" loading="lazy">
+                    <img src="assets/images/estrutura/estrutura_2.webp" alt="Espaço de atendimento com estrutura organizada" loading="lazy" width="2252" height="4000">
                 </div>
                 <div class="estrutura-item">
-                    <img src="assets/images/estrutura/estrutura_3.webp" alt="Consultório com equipamentos para oftalmologia veterinária" loading="lazy">
+                    <img src="assets/images/estrutura/estrutura_3.webp" alt="Consultório com equipamentos para oftalmologia veterinária" loading="lazy" width="2252" height="4000">
                 </div>
                 <div class="estrutura-item">
-                    <img src="assets/images/estrutura/estrutura_4.webp" alt="Detalhe da estrutura moderna da clínica" loading="lazy">
+                    <img src="assets/images/estrutura/estrutura_4.webp" alt="Detalhe da estrutura moderna da clínica" loading="lazy" width="1600" height="2400">
                 </div>
             </div>
         </div>
@@ -377,12 +378,12 @@
         <div class="container">
             <div class="autoridade-grid">
                 <div class="autoridade-image autoridade-image-desktop">
-                    <img src="assets/images/carol_sozinha.avif" alt="Dra. Carolina Neumann - Oftalmologista Veterinária" loading="lazy">
+                    <img src="assets/images/carol_sozinha.avif" alt="Dra. Carolina Neumann - Oftalmologista Veterinária" loading="lazy" width="640" height="853">
                 </div>
                 <div class="autoridade-content">
                     <h2 class="autoridade-title">Dra. Carolina – Oftalmologia Veterinária com foco e dedicação</h2>
                     <div class="autoridade-image autoridade-image-mobile">
-                        <img src="assets/images/carol_sozinha.avif" alt="Dra. Carolina Neumann - Oftalmologista Veterinária" loading="lazy">
+                        <img src="assets/images/carol_sozinha.avif" alt="Dra. Carolina Neumann - Oftalmologista Veterinária" loading="lazy" width="640" height="853">
                     </div>
                     <p class="autoridade-text">Com atuação dedicada à saúde ocular veterinária, a Dra. Carolina trabalha com avaliação criteriosa, diagnóstico detalhado e acompanhamento responsável, proporcionando segurança e clareza para tutores e pets.</p>
                     <div class="autoridade-features">
@@ -518,7 +519,7 @@
                     </div>
                 </div>
                 <div class="cta-final-image">
-                    <img src="assets/images/fachada/clinica_fachada2.webp" alt="Vista da fachada da clínica da Dra. Carolina Neumann" loading="lazy">
+                    <img src="assets/images/fachada/clinica_fachada2.webp" alt="Vista da fachada da clínica da Dra. Carolina Neumann" loading="lazy" width="1600" height="2400">
                 </div>
             </div>
         </div>
@@ -527,7 +528,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <img src="assets/images/logo_oftalmo.png" alt="Logo da Dra. Carolina Neumann" class="footer-logo" loading="lazy">
+            <img src="assets/images/logo_oftalmo.png" alt="Logo da Dra. Carolina Neumann" class="footer-logo" loading="lazy" width="1749" height="296">
         </div>
     </footer>
 
@@ -537,6 +538,6 @@
     </a>
 
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
